@@ -9,5 +9,5 @@
 
        node app listar --base 7 --limite 3
 
-       crear --base=11
+       node app crear --base=11 --limite 3
    ```
