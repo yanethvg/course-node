@@ -20,3 +20,5 @@ Paquetes Utilizados
 5. [Bcrypt](https://www.npmjs.com/package/bcrypt) Para validaciones
 
 6. [Underscore-js](https://underscorejs.org/) se utiliza para utilizar pick, una copia de los atributos que se quieren
+
+7. [JsonWebToken](https://www.npmjs.com/package/jsonwebtoken) Para crear los tokens

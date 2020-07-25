@@ -13,9 +13,15 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // parse application/json
 app.use(bodyParser.json());
 
-//con esto usamos las rutas dentro de usuario
-app.use(require("./routes/usuario"));
+//configuracion global de rutas
+app.use(require("./routes/index"));
 
+//con esto usamos las rutas dentro de usuario
+/*
+Antes de hacer el index dentro de routes
+app.use(require("./routes/usuario"));
+app.use(require("./routes/login"));
+*/
 /*
 app.get("/", function(req, res) {
     // send es para enviar html
@@ -28,7 +34,7 @@ mongoose
         useCreateIndex: true,
         useNewUrlParser: true,
         useUnifiedTopology: true,
-        useFindAndModify: false
+        useFindAndModify: false,
     })
     .then((result) => console.log("Conectado a MongoDB"))
     .catch((err) => console.log(err));

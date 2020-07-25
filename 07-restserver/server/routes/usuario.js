@@ -4,10 +4,20 @@ const bcrypt = require("bcrypt");
 const _ = require("underscore");
 
 const Usuario = require("../models/usuario");
+const {
+    verificaToken,
+    verificaAdminRol,
+} = require("../middlewares/authenticacion");
 
 const app = express();
 
-app.get("/usuario", function(req, res) {
+app.get("/usuario", verificaToken, function(req, res) {
+    // por la implementacion del middlware tiene disponible de lo que resolvio en el md¿iddleware
+    /*return res.json({
+                  usuario: req.usuario,
+                  nombre: req.usuario.nombre,
+                  email: req.usuario.email,
+              });*/
     // trae todos los registros de la colleccion
     let desde = req.query.desde || 0;
     desde = Number(desde);
@@ -38,7 +48,10 @@ app.get("/usuario", function(req, res) {
     //res.json("get Usuario");
 });
 
-app.post("/usuario", async function(req, res) {
+app.post("/usuario", [verificaToken, verificaAdminRol], async function(
+    req,
+    res
+) {
     let body = req.body;
 
     const salt = await bcrypt.genSaltSync(10);
@@ -69,7 +82,7 @@ app.post("/usuario", async function(req, res) {
     });
 });
 
-app.put("/usuario/:id", function(req, res) {
+app.put("/usuario/:id", [verificaToken, verificaAdminRol], function(req, res) {
     let id = req.params.id;
     // arreglo de propiedades validas
     let body = _.pick(req.body, ["nombre", "email", "img", "role", "estado"]);
@@ -92,7 +105,10 @@ app.put("/usuario/:id", function(req, res) {
     );
 });
 
-app.delete("/usuario/:id", function(req, res) {
+app.delete("/usuario/:id", [verificaToken, verificaAdminRol], function(
+    req,
+    res
+) {
     let id = req.params.id;
 
     let cambiaEstado = {
@@ -125,26 +141,26 @@ app.delete("/usuario/:id", function(req, res) {
     );
     // Eliminacion fisica en la base de datos
     /*
-            Usuario.findByIdAndRemove(id, (err, usuarioBorrado) => {
-                if (err) {
-                    return res.status(400).json({
-                        ok: false,
-                        err,
-                    });
-                }
-                if (!usuarioBorrado) {
-                    return res.status(400).json({
-                        ok: false,
-                        err: {
-                            message: "Usuario no encontrado",
-                        },
-                    });
-                }
-                res.json({
-                    ok: true,
-                    usuario: usuarioBorrado,
-                });
-            });*/
+                                Usuario.findByIdAndRemove(id, (err, usuarioBorrado) => {
+                                    if (err) {
+                                        return res.status(400).json({
+                                            ok: false,
+                                            err,
+                                        });
+                                    }
+                                    if (!usuarioBorrado) {
+                                        return res.status(400).json({
+                                            ok: false,
+                                            err: {
+                                                message: "Usuario no encontrado",
+                                            },
+                                        });
+                                    }
+                                    res.json({
+                                        ok: true,
+                                        usuario: usuarioBorrado,
+                                    });
+                                });*/
 
     //res.json("delete Usuario");
 });
