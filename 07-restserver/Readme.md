@@ -21,4 +21,8 @@ Paquetes Utilizados
 
 6. [Underscore-js](https://underscorejs.org/) se utiliza para utilizar pick, una copia de los atributos que se quieren
 
-7. [JsonWebToken](https://www.npmjs.com/package/jsonwebtoken) Para crear los tokens
+7. [JsonWebToken](https://www.npmjs.com/package/jsonwebtoken) Para crear los
+
+7.[SiginGoogle](https://developers.google.com/identity/sign-in/web/sign-in)
+
+8.[Google](https://developers.google.com/identity/sign-in/web/backend-auth) autenticación con google
