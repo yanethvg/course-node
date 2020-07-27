@@ -83,27 +83,50 @@ app.get("/producto/:id", verificaToken, (req, res) => {
         });
 
     /*
-          Producto.findById(id, (err, productoDB) => {
-                  if (err) {
-                      return res.status(400).json({
-                          ok: false,
-                          err,
-                      });
-                  }
-                  if (!productoDB) {
-                      return res.status(400).json({
-                          ok: false,
-                          err,
-                      });
-                  }
+                        Producto.findById(id, (err, productoDB) => {
+                                if (err) {
+                                    return res.status(400).json({
+                                        ok: false,
+                                        err,
+                                    });
+                                }
+                                if (!productoDB) {
+                                    return res.status(400).json({
+                                        ok: false,
+                                        err,
+                                    });
+                                }
 
-                  res.json({
-                      ok: true,
-                      producto: productoDB,
-                  });
-              })
-              .populate("usuario", "nombre email")
-              .populate("categoria", "descripcion");*/
+                                res.json({
+                                    ok: true,
+                                    producto: productoDB,
+                                });
+                            })
+                            .populate("usuario", "nombre email")
+                            .populate("categoria", "descripcion");*/
+});
+
+//========================
+// Buscar Productos
+//==========================
+app.get("/producto/buscar/:termino", verificaToken, (req, res) => {
+    let termino = req.params.termino;
+
+    let regex = new RegExp(termino, "i");
+    Producto.find({ nombre: regex })
+        .populate("categoria", "descripcion")
+        .exec((err, productos) => {
+            if (err) {
+                return res.status(400).json({
+                    ok: false,
+                    err,
+                });
+            }
+            res.json({
+                ok: true,
+                productos,
+            });
+        });
 });
 
 //========================
