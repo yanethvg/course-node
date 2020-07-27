@@ -20,10 +20,13 @@ app.get("/categoria", verificaToken, (req, res) => {
 
     let limite = req.query.limite || 5;
     limite = Number(limite);
-    Categoria.find({}, "descripcion usuario")
+    Categoria.find({})
+        .sort("descripcion")
+        //trae la información de el id que tiene relacion
+        .populate("usuario", "nombre email")
         //skip es salto y muestra los siguientes
-        .skip(desde)
-        .limit(limite)
+        //.skip(desde)
+        //.limit(limite)
         .exec((err, categorias) => {
             if (err) {
                 return res.status(400).json({
