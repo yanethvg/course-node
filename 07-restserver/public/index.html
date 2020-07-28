@@ -10,6 +10,8 @@
 </head>
 
 <body>
+    <!-- <img src="http://localhost:3000/imagen/productos/5f1f141ab95e76101eb66370-963.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvIjp7InJvbGUiOiJBRE1JTl9ST0xFIiwiZXN0YWRvIjp0cnVlLCJnb29nbGUiOmZhbHNlLCJfaWQiOiI1ZjFiMzhhMGZkOWY5YTVmMjljMWUyZWEiLCJub21icmUiOiJUZXN0IiwiZW1haWwiOiJ0ZXN0MkBnbWFpbC5jb20iLCJfX3YiOjB9LCJpYXQiOjE1OTU4NzE4OTcsImV4cCI6MTU5NjA0NDY5N30.DwG9QMh1sm8y56bj8uADdeRlUACC9lxaYCANs7Nyplc"
+        alt="" />-->
     <div class="g-signin2" data-onsuccess="onSignIn"></div>
     <a href="#" onclick="signOut();">Sign out</a>
     <script>
@@ -23,13 +25,13 @@
     <script>
         function onSignIn(googleUser) {
             var profile = googleUser.getBasicProfile();
-            console.log("ID: " + profile.getId()); // Do not send to your backend! Use an ID token instead.
-            console.log("Name: " + profile.getName());
-            console.log("Image URL: " + profile.getImageUrl());
-            console.log("Email: " + profile.getEmail()); // This is null if the 'email' scope is not present.
-
+            console.log("ID: " + profile.getId()); // Do not send to your backend! Use an ID token instead. // This is null if the 'email' scope is not present.
+            /*
+                    console.log("Name: " + profile.getName());
+                    console.log("Image URL: " + profile.getImageUrl());
+                    console.log("Email: " + profile.getEmail());*/
             var id_token = googleUser.getAuthResponse().id_token;
-            console.log(id_token);
+            //console.log(id_token);
             var xhr = new XMLHttpRequest();
             xhr.open("POST", "/google");
             xhr.setRequestHeader(
